@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Arjun Pangarkar</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700&family=Inter:wght@300;400;500&display=swap" rel="stylesheet" />
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #0f1117;
+    --bg2: #161b26;
+    --bg3: #1e2535;
+    --accent: #c8a96e;
+    --accent2: #e8c98e;
+    --text: #e8e6e0;
+    --muted: #8a8a95;
+    --border: rgba(200,169,110,0.18);
+    --tag-bg: rgba(200,169,110,0.1);
+    --serif: 'Syne', sans-serif;
+    --sans: 'Inter', sans-serif;
+  }
+
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--sans);
+    font-size: 15px;
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    padding: 1.1rem 2.5rem;
+    display: flex; justify-content: space-between; align-items: center;
+    background: rgba(15,17,23,0.88);
+    backdrop-filter: blur(12px);
+    border-bottom: 0.5px solid var(--border);
+  }
+  .nav-logo {
+    font-family: var(--serif); font-size: 1.05rem; font-weight: 700;
+    color: var(--accent); letter-spacing: 0.04em; text-decoration: none;
+  }
+  .nav-links { display: flex; gap: 2rem; list-style: none; }
+  .nav-links a {
+    text-decoration: none; color: var(--muted); font-size: 13px;
+    letter-spacing: 0.04em; font-weight: 400;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--accent); }
+
+  section { padding: 5rem 0; max-width: 900px; margin: 0 auto; padding-left: 2.5rem; padding-right: 2.5rem; }
+
+  #hero {
+    min-height: 100vh; display: flex; flex-direction: column;
+    justify-content: center; padding-top: 7rem; padding-bottom: 4rem;
+    max-width: none; padding-left: 10%; padding-right: 10%;
+    position: relative;
+  }
+  .hero-eyebrow {
+    font-size: 12px; letter-spacing: 0.1em;
+    color: var(--accent); margin-bottom: 1.5rem; font-weight: 500;
+  }
+  .hero-name {
+    font-family: var(--serif); font-size: clamp(3.4rem, 7vw, 6rem);
+    font-weight: 700; line-height: 1.0; color: var(--text);
+    margin-bottom: 0.6rem; letter-spacing: -0.01em;
+  }
+  .hero-name span { color: var(--accent); }
+  .hero-subtitle {
+    font-family: var(--serif); font-size: clamp(1rem, 2vw, 1.3rem);
+    color: var(--muted); font-weight: 400; margin-bottom: 2rem;
+    letter-spacing: 0.04em;
+  }
+  .hero-desc {
+    max-width: 500px; font-size: 14.5px; color: var(--muted);
+    line-height: 1.85; margin-bottom: 2.5rem; font-weight: 300;
+  }
+  .hero-btns { display: flex; gap: 1rem; flex-wrap: wrap; }
+  .btn {
+    display: inline-block; padding: 0.65rem 1.5rem;
+    text-decoration: none; font-size: 13px; font-weight: 500;
+    letter-spacing: 0.04em; border-radius: 4px; transition: all 0.2s; cursor: pointer;
+    font-family: var(--sans);
+  }
+  .btn-primary { background: var(--accent); color: #0f1117; border: 1.5px solid var(--accent); }
+  .btn-primary:hover { background: var(--accent2); border-color: var(--accent2); }
+  .btn-ghost { background: transparent; color: var(--accent); border: 1.5px solid var(--border); }
+  .btn-ghost:hover { border-color: var(--accent); }
+  .hero-deco {
+    position: absolute; right: 8%; top: 50%; transform: translateY(-50%);
+    width: 220px; height: 220px; border-radius: 50%;
+    border: 0.5px solid var(--border);
+    display: flex; align-items: center; justify-content: center;
+    opacity: 0.3; pointer-events: none;
+  }
+  .hero-deco::before { content: ''; position: absolute; width: 160px; height: 160px; border-radius: 50%; border: 0.5px solid var(--accent); }
+  .hero-deco::after { content: ''; position: absolute; width: 80px; height: 80px; border-radius: 50%; border: 0.5px solid rgba(200,169,110,0.5); }
+
+  .section-label { font-size: 11px; letter-spacing: 0.14em; color: var(--accent); margin-bottom: 0.5rem; font-weight: 500; }
+  .section-title { font-family: var(--serif); font-size: clamp(1.8rem, 3.5vw, 2.5rem); font-weight: 700; color: var(--text); margin-bottom: 2.5rem; line-height: 1.15; letter-spacing: -0.01em; }
+  .divider { width: 100%; height: 0.5px; background: linear-gradient(90deg, var(--accent) 0%, transparent 80%); margin-bottom: 3rem; opacity: 0.4; }
+
+  .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: start; }
+  .about-text { font-size: 14.5px; color: var(--muted); line-height: 1.9; font-weight: 300; }
+  .about-text p { margin-bottom: 1rem; }
+  .skills-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.65rem; }
+  .skill-item {
+    background: var(--bg2); border: 0.5px solid var(--border);
+    border-radius: 4px; padding: 0.5rem 0.9rem;
+    font-size: 12.5px; color: var(--text); font-weight: 400;
+    display: flex; align-items: center; gap: 0.5rem;
+  }
+  .skill-dot { width: 4px; height: 4px; border-radius: 50%; background: var(--accent); flex-shrink: 0; }
+
+  .projects-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.1rem; }
+  .project-card {
+    background: var(--bg2); border: 0.5px solid var(--border);
+    border-radius: 8px; padding: 1.4rem;
+    transition: border-color 0.2s, transform 0.2s;
+    position: relative; overflow: hidden;
+  }
+  .project-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: var(--accent); opacity: 0; transition: opacity 0.2s; }
+  .project-card:hover { border-color: rgba(200,169,110,0.4); transform: translateY(-2px); }
+  .project-card:hover::before { opacity: 1; }
+  .project-type { font-size: 10.5px; letter-spacing: 0.1em; color: var(--accent); margin-bottom: 0.5rem; font-weight: 500; }
+  .project-title { font-family: var(--serif); font-size: 1.1rem; font-weight: 600; color: var(--text); margin-bottom: 0.55rem; line-height: 1.3; }
+  .project-desc { font-size: 13px; color: var(--muted); line-height: 1.75; margin-bottom: 1rem; font-weight: 300; }
+  .project-tags { display: flex; flex-wrap: wrap; gap: 0.35rem; margin-bottom: 1rem; }
+  .tag { background: var(--tag-bg); border: 0.5px solid var(--border); border-radius: 3px; padding: 0.2rem 0.55rem; font-size: 11px; color: var(--accent); font-weight: 500; }
+  .project-link { font-size: 12px; color: var(--accent); text-decoration: none; letter-spacing: 0.04em; font-weight: 500; display: inline-flex; align-items: center; gap: 0.3rem; transition: gap 0.2s; }
+  .project-link:hover { gap: 0.55rem; }
+
+  .timeline { display: flex; flex-direction: column; }
+  .timeline-item { display: grid; grid-template-columns: 1fr 2.5fr; gap: 2rem; padding: 1.5rem 0; border-top: 0.5px solid rgba(200,169,110,0.12); }
+  .timeline-item:last-child { border-bottom: 0.5px solid rgba(200,169,110,0.12); }
+  .tl-date { font-size: 11.5px; color: var(--accent); font-weight: 500; margin-bottom: 0.2rem; }
+  .tl-org { font-size: 12px; color: var(--muted); font-weight: 300; }
+  .tl-title { font-family: var(--serif); font-size: 1.05rem; font-weight: 600; color: var(--text); margin-bottom: 0.5rem; }
+  .tl-desc { font-size: 13.5px; color: var(--muted); line-height: 1.75; font-weight: 300; }
+  .tl-desc ul { padding-left: 1.1rem; margin-top: 0.4rem; }
+  .tl-desc li { margin-bottom: 0.25rem; }
+
+  .contact-inner {
+    background: var(--bg2); border: 0.5px solid var(--border);
+    border-radius: 8px; padding: 2.5rem 3rem;
+    display: flex; justify-content: space-between; align-items: center; gap: 2rem;
+  }
+  .contact-title { font-family: var(--serif); font-size: 1.8rem; font-weight: 700; color: var(--text); margin-bottom: 0.5rem; }
+  .contact-text p { font-size: 14px; color: var(--muted); font-weight: 300; }
+  .contact-links { display: flex; flex-direction: column; gap: 0.75rem; align-items: flex-end; }
+  .contact-link { font-size: 13px; color: var(--accent); text-decoration: none; letter-spacing: 0.03em; display: flex; align-items: center; gap: 0.4rem; transition: opacity 0.2s; font-weight: 400; }
+  .contact-link:hover { opacity: 0.7; }
+
+  footer { text-align: center; padding: 2rem; font-size: 12px; color: var(--muted); border-top: 0.5px solid var(--border); font-weight: 300; }
+
+  @media (max-width: 700px) {
+    #hero { padding-left: 5%; padding-right: 5%; }
+    .hero-deco { display: none; }
+    .about-grid { grid-template-columns: 1fr; }
+    .projects-grid { grid-template-columns: 1fr; }
+    .timeline-item { grid-template-columns: 1fr; gap: 0.3rem; }
+    .contact-inner { flex-direction: column; align-items: flex-start; }
+    .contact-links { align-items: flex-start; }
+    nav { padding: 1rem 1.25rem; }
+    .nav-links { gap: 1rem; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="#hero" class="nav-logo">AP</a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<section id="hero">
+  <p class="hero-eyebrow">Babson College &mdash; Class of 2028</p>
+  <h1 class="hero-name">Arjun<br><span>Pangarkar</span></h1>
+  <p class="hero-subtitle">Finance &middot; Strategy &middot; AI</p>
+  <p class="hero-desc">Junior at Babson College building at the intersection of financial analysis, business strategy, and AI-driven tools. Interested in corporate finance, financial strategy, AI strategy, data analytics, and business development.</p>
+  <div class="hero-btns">
+    <a href="#projects" class="btn btn-primary">View Projects</a>
+    <a href="#contact" class="btn btn-ghost">Get in Touch</a>
+  </div>
+  <div class="hero-deco" aria-hidden="true"></div>
+</section>
+
+<section id="about">
+  <p class="section-label">Background</p>
+  <h2 class="section-title">About Me</h2>
+  <div class="divider"></div>
+  <div class="about-grid">
+    <div class="about-text">
+      <p>I'm a junior at Babson College with a passion for understanding how businesses create and capture value — and how technology is reshaping that equation.</p>
+      <p>My work spans financial modeling, strategic analysis, and building data-driven tools. I'm especially drawn to problems where rigorous analysis meets creative problem-solving.</p>
+      <p>This summer I'm deepening my work in financial modeling (DCF/comps, credit risk) while continuing to build tools at the intersection of AI and finance.</p>
+      <a href="#" class="btn btn-ghost" style="margin-top:0.5rem; font-size:12px; padding: 0.55rem 1.2rem;">Download Resume ↓</a>
+    </div>
+    <div>
+      <p style="font-size:11px; letter-spacing:0.1em; color:var(--accent); margin-bottom:1rem; font-weight:500;">SKILLS &amp; TOOLS</p>
+      <div class="skills-grid">
+        <div class="skill-item"><span class="skill-dot"></span>Financial Modeling</div>
+        <div class="skill-item"><span class="skill-dot"></span>DCF / Comps</div>
+        <div class="skill-item"><span class="skill-dot"></span>Python</div>
+        <div class="skill-item"><span class="skill-dot"></span>Excel / VBA</div>
+        <div class="skill-item"><span class="skill-dot"></span>Data Analytics</div>
+        <div class="skill-item"><span class="skill-dot"></span>AI Strategy</div>
+        <div class="skill-item"><span class="skill-dot"></span>Business Dev</div>
+        <div class="skill-item"><span class="skill-dot"></span>Corporate Finance</div>
+        <div class="skill-item"><span class="skill-dot"></span>SQL</div>
+        <div class="skill-item"><span class="skill-dot"></span>PowerPoint</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="projects">
+  <p class="section-label">Work</p>
+  <h2 class="section-title">Projects</h2>
+  <div class="divider"></div>
+  <div class="projects-grid">
+
+    <div class="project-card">
+      <p class="project-type">Finance &middot; Modeling</p>
+      <h3 class="project-title">DCF / Comps Analysis</h3>
+      <p class="project-desc">Valuation analysis applying discounted cash flow and comparable company analysis frameworks to demonstrate core investment banking and corporate finance modeling skills.</p>
+      <div class="project-tags"><span class="tag">Excel</span><span class="tag">Modeling</span><span class="tag">Valuation</span></div>
+      <a href="#" class="project-link">View Analysis →</a>
+    </div>
+
+    <div class="project-card">
+      <p class="project-type">Finance &middot; Risk</p>
+      <h3 class="project-title">Credit Risk Analysis</h3>
+      <p class="project-desc">Quantitative credit risk model evaluating default probability and risk metrics across a borrower portfolio. Incorporates financial ratios and macro indicators.</p>
+      <div class="project-tags"><span class="tag">Python</span><span class="tag">Risk</span><span class="tag">Analytics</span></div>
+      <a href="#" class="project-link">View Project →</a>
+    </div>
+
+    <div class="project-card">
+      <p class="project-type">App &middot; AI</p>
+      <h3 class="project-title">Finance Dashboard</h3>
+      <p class="project-desc">Interactive financial dashboard for tracking and visualizing portfolio-level financial data, with real-time inputs and a clean, responsive interface.</p>
+      <div class="project-tags"><span class="tag">React</span><span class="tag">Data Viz</span><span class="tag">Finance</span></div>
+      <a href="#" class="project-link">Launch App →</a>
+    </div>
+
+    <div class="project-card">
+      <p class="project-type">App &middot; Health</p>
+      <h3 class="project-title">Calorie Tracker App</h3>
+      <p class="project-desc">Nutrition tracking app with meal logging, macro breakdowns, and daily goal tracking — built with a clean, intuitive interface powered by the Claude API.</p>
+      <div class="project-tags"><span class="tag">React</span><span class="tag">Claude API</span><span class="tag">UI/UX</span></div>
+      <a href="#" class="project-link">Launch App →</a>
+    </div>
+
+    <div class="project-card">
+      <p class="project-type">Business &middot; Strategy</p>
+      <h3 class="project-title">FME WaterWise</h3>
+      <p class="project-desc">Business development project focused on water conservation strategy. Developed market analysis, financial projections, and a full go-to-market plan.</p>
+      <div class="project-tags"><span class="tag">Strategy</span><span class="tag">Business Dev</span><span class="tag">Sustainability</span></div>
+      <a href="#" class="project-link">View Project →</a>
+    </div>
+
+    <div class="project-card" style="border-style: dashed; opacity: 0.5;">
+      <p class="project-type">Coming Soon</p>
+      <h3 class="project-title">More Projects</h3>
+      <p class="project-desc">Additional finance, strategy, and AI projects in progress — check back or connect on LinkedIn for updates.</p>
+      <div class="project-tags"><span class="tag">Summer 2025</span></div>
+    </div>
+
+  </div>
+</section>
+
+<section id="experience">
+  <p class="section-label">Background</p>
+  <h2 class="section-title">Experience &amp; Education</h2>
+  <div class="divider"></div>
+  <div class="timeline">
+
+    <div class="timeline-item">
+      <div>
+        <p class="tl-date">2022 &ndash; Present</p>
+        <p class="tl-org">Babson College</p>
+      </div>
+      <div>
+        <p class="tl-title">B.S. in Business Administration</p>
+        <div class="tl-desc">
+          <p>Concentrating in Finance and Entrepreneurship. Expected graduation: May 2028.</p>
+          <ul>
+            <li>Add relevant coursework, clubs, or honors here</li>
+            <li>E.g. Investment Club, Finance Society, Dean's List</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="timeline-item">
+      <div>
+        <p class="tl-date">Add Date</p>
+        <p class="tl-org">Company / Org</p>
+      </div>
+      <div>
+        <p class="tl-title">Role Title</p>
+        <div class="tl-desc">
+          <ul>
+            <li>Describe what you did and the impact</li>
+            <li>Quantify results where possible</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="timeline-item">
+      <div>
+        <p class="tl-date">Add Date</p>
+        <p class="tl-org">Company / Org</p>
+      </div>
+      <div>
+        <p class="tl-title">Role Title</p>
+        <div class="tl-desc">
+          <ul>
+            <li>Replace with your actual experience</li>
+            <li>Leadership, internships, freelance all count</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<section id="contact">
+  <p class="section-label">Connect</p>
+  <h2 class="section-title">Get in Touch</h2>
+  <div class="divider"></div>
+  <div class="contact-inner">
+    <div class="contact-text">
+      <p class="contact-title">Let's talk.</p>
+      <p>Open to internships, project collaborations, and conversations about finance, strategy, and AI.</p>
+    </div>
+    <div class="contact-links">
+      <a href="mailto:your@email.com" class="contact-link">✉ your@email.com</a>
+      <a href="https://linkedin.com/in/yourhandle" target="_blank" class="contact-link">↗ LinkedIn</a>
+      <a href="https://github.com/yourhandle" target="_blank" class="contact-link">↗ GitHub</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>Arjun Pangarkar &mdash; Babson College '28</p>
+</footer>
+
+</body>
+</html>
